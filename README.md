@@ -150,8 +150,44 @@ end
 [출처] [vagrant] Multi Machine (vm 여러개 띄우기) & CPU개수 조정|작성자 asdf
 ```
 
-### 참고자료
+#### 참고자료
 
 [](https://rorlab.org/rblogs/232)
 [](http://taewan.kim/post/vagrant_intro/)
 [](http://blog.naver.com/PostView.nhn?blogId=sory1008&logNo=220759894761&categoryNo=0&parentCategoryNo=0&viewDate=&currentPage=1&postListTopCurrentPage=1&from=postView)
+
+### Kubernetes 설치
+
+#### Master Node
+
+###### kubectl 설치
+
+* kubectl 다운로드
+
+```
+curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+chmod +x ./kubectl
+```
+
+* $PATH 경로에 넣기
+
+```
+sudo mv ./kubectl /usr/local/bin/kubectl
+```
+
+* 확인
+
+```
+kubectl version
+```
+
+###### minikube 설치
+
+```
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/ 
+```
+
+#### 참고자료
+
+[](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+
