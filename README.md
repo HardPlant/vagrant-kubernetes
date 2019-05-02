@@ -58,8 +58,12 @@ vagrant box list
 vagrant init ubuntu/trusty64
 ```
 
-#### 구동
+#### 구동 및 접근
 
+```
+vagrant up
+vagrant ssh
+```
 
 ### 참고자료
 
