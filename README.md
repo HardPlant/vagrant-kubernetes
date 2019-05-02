@@ -164,20 +164,13 @@ end
 
 * kubectl 다운로드
 
+* $PATH 경로에 넣기
+
+* 확인
 ```
 curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 chmod +x ./kubectl
-```
-
-* $PATH 경로에 넣기
-
-```
 sudo mv ./kubectl /usr/local/bin/kubectl
-```
-
-* 확인
-
-```
 kubectl version
 ```
 
