@@ -1,0 +1,36 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.provision "shell", inline: "echo Hello"
+
+  config.vm.define "master" do |master|
+    master.vm.box = "ubuntu/trusty64"
+    master.vm.hostname = "TestVM1"
+    master.vm.network "public_network", ip: "10.0.2.10"
+    # modify mem, cpu
+    config.vm.provider "virtualbox" do |v|
+      v.memory = 1024
+    end
+  end
+
+  config.vm.define "minion1" do |minion|
+    minion.vm.box = "ubuntu/trusty64"
+    minion.vm.hostname = "TestVM2"
+    minion.vm.network "public_network", ip: "10.0.2.20"
+        # modify mem, cpu
+    config.vm.provider "virtualbox" do |v|
+      v.memory = 512
+    end
+  end
+
+  config.vm.define "minion2" do |minion|
+    minion.vm.box = "ubuntu/trusty64"
+    minion.vm.hostname = "TestVM3"
+    minion.vm.network "public_network", ip: "10.0.2.21"
+        # modify mem, cpu
+    config.vm.provider "virtualbox" do |v|
+      v.memory = 512
+    end
+  end
+end

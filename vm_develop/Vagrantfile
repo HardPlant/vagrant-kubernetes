@@ -10,27 +10,8 @@ Vagrant.configure("2") do |config|
     master.vm.network "public_network", ip: "10.0.2.10"
     # modify mem, cpu
     config.vm.provider "virtualbox" do |v|
-      v.memory = 1024
-    end
-  end
-
-  config.vm.define "minion1" do |minion|
-    minion.vm.box = "ubuntu/trusty64"
-    minion.vm.hostname = "TestVM2"
-    minion.vm.network "public_network", ip: "10.0.2.20"
-        # modify mem, cpu
-    config.vm.provider "virtualbox" do |v|
-      v.memory = 512
-    end
-  end
-
-  config.vm.define "minion2" do |minion|
-    minion.vm.box = "ubuntu/trusty64"
-    minion.vm.hostname = "TestVM3"
-    minion.vm.network "public_network", ip: "10.0.2.21"
-        # modify mem, cpu
-    config.vm.provider "virtualbox" do |v|
-      v.memory = 512
+      v.cpu = 2
+      v.memory = 2048
     end
   end
 end
