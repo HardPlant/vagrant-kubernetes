@@ -163,6 +163,52 @@ spec:
 Replica Set의 상위 추상화 개념임
 실제로 사용함
 
+```yml
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: hello-deployment
+spec:
+  replicas: 3                   # 유지할 Pod 수
+  minReadySeconds: 5            #
+  selector:                     
+    matchLabels:                #
+      app: hello-deployment     #
+  template:
+    metadata:
+      name: hello-deployment-pod
+      labels:
+        app: hello-deployment
+    spec:
+      containers:
+      - name: hello-deployment
+        image: gcr.io/terrycho-sandbox/deployment:v1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+```
+
+으로 Pod을 배포하고, `minReadySeconds` 값으로 초단위 딜레이를 준다.
+
+그리고 Pod 앞에 서비스를 배포한다.
+
+```yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-deployment-svc
+spec:
+  selector:
+    app: hello-deployment
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 8080
+  type: LoadBalance
+```
+
+
 ###### 배포 시나리오
 
 * 블루/그린
@@ -234,3 +280,24 @@ spec:
 ##### StatefulSet
 
 DB 등 상태가 있는 Pod을 관리하는 컨트롤러
+
+### 객체 설정 업데이트 방법
+
+```bash
+kubectl edit deploy hello-deployment        # vi 창으로 수정
+kubectl replace -f hello-deployment.yaml    # yaml 파일
+kubectl patch deployment (name) --patch ''  # 패치 방식
+```
+
+### 롤백
+
+```
+kubectl rollout history deployment/(name)
+```
+
+revision을 확인할 수 있다 (기본 설정은 2개 유지)
+그리고
+
+```
+kubectl rollout undo deployment (name) --to-revision=(version)
+```
