@@ -1,5 +1,12 @@
-FROM node:latest
+FROM node:8
 
-RUN yarn init
+# install
+COPY package*.json ./
 
-CMD [ "yarn", "init" ]
+RUN npm install
+
+# codes
+COPY . .
+
+# run
+CMD [ "npm", "start" ]
