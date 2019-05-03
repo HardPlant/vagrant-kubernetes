@@ -60,7 +60,7 @@ go get github.com/gorilla/mux
 
 ### 도커파일 만들기
 
-```
+```dockerfile
 #Note: golang:onbuild is a very straightforward way for you to build your own GO app image
 FROM golang:onbuild
 EXPOSE 8500
