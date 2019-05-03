@@ -221,6 +221,23 @@ minikube dashboard
 
 최저환경 기준으로 1분 쯤 뒤에 실행된다.
 
+#### 서비스 삭제
+
+```
+kubectl delete services hello-minikube
+```
+
+#### deployment 삭제
+
+```
+kubectl delete deployment hello-minikube
+```
+#### minikube 정지
+
+```
+minikube stop
+```
+
 
 ### (리눅스 Kubernetes)
 
