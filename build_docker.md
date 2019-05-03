@@ -66,6 +66,20 @@ FROM golang:onbuild
 EXPOSE 8500
 ```
 
+## 이미지 빌드, 컨테이너 생성
+
+(위에서 했던 Windows 환경설정)
+
+```ps1
+minikube start
+minikube docker-env
+minikube docker-env | Invoke-Expression
+```
+
+#### 도커 이미지 빌드
+
+
+
 ### 참고자료
 
 [](https://medium.com/humanscape-tech/kubernetes-%EB%8F%84%EC%9E%85-%EC%A0%84-minikube-%EC%82%AC%EC%9A%A9%EA%B8%B0-2eb2b6d8e444)
