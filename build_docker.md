@@ -66,7 +66,7 @@ FROM golang:onbuild
 EXPOSE 8500
 ```
 
-## 이미지 빌드, 컨테이너 생성
+### 이미지 빌드, 컨테이너 생성
 
 (위에서 했던 Windows 환경설정)
 
@@ -76,11 +76,58 @@ minikube docker-env
 minikube docker-env | Invoke-Expression
 ```
 
+```
+minikube docker-env | Invoke-Expression
+```
+해당 설정은 쉘이 열릴 때마다 수행해야 한다.
+
 #### 도커 이미지 빌드
 
+```
+docker build -t dummy:v0 .
+```
 
+### 컨테이너 실행
+
+* 실행
+
+```ps1
+kubectl run hello-universe --image=dummy:v0 --port=8500
+```
+
+* 네트워크 포트 열기
+
+컨테이너에 접근하기 위해 포트를 열어야 한다.
+
+```ps1
+kubectl expose deployment hello-universe --type="LoadBalancer"
+```
+
+서비스가 잘 생성됬는지 확인하려면
+
+```
+kubectl get services
+```
+
+서비스의 url을 얻으려면
+
+```
+minikube service hello-universe --url
+```
+
+### 스케일링
+
+```
+kubectl scale deployment hello-universe --replicas=3
+```
+
+### 참고
+
+image 없이 run을 한 뒤 image를 올려도 k8s가 자동으로 pods를 띄워준다.
 
 ### 참고자료
+
+[](https://medium.com/@maumribeiro/running-your-own-docker-images-in-minikube-for-windows-ea7383d931f6)
 
 [](https://medium.com/humanscape-tech/kubernetes-%EB%8F%84%EC%9E%85-%EC%A0%84-minikube-%EC%82%AC%EC%9A%A9%EA%B8%B0-2eb2b6d8e444)
 
