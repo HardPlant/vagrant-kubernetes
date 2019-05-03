@@ -1,0 +1,13 @@
+{
+  "name": "telegram_chatbot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "js-yaml": "^3.13.1",
+    "node-telegram-bot-api": "^0.30.0"
+  }
+}
