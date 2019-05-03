@@ -158,6 +158,72 @@ end
 
 ### Kubernetes 설치
 
+#### Windows에서 설치
+
+
+```
+! Virtualbox가 중첩 가상화를 제공하지 않으므로, Windows 호스트에서 minikube를 설치해야 하겠다.
+```
+
+#### Chocolatey 설치
+
+Windows 패키지 매니저다. [설치방법은 여기에 있다.](https://chocolatey.org/install)
+
+```ps1
+Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+```
+
+#### kubectl 설치
+
+```
+curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.14.0/bin/windows/amd64/kubectl.exe
+```
+
+해당 바이너리를 PATH 환경변수 하에 놓는다.
+
+또는
+
+```
+choco install kubernetes-cli
+```
+
+#### Minikube 설치
+
+```
+choco install minikube
+```
+
+#### Minikube 시작
+[](https://kubernetes.io/docs/setup/minikube/#quickstart)
+```
+minikube start
+```
+
+이 명령어는 자동으로 2Core, 2GB 메모리, 20GB 디스크를 사용하는 가상머신을 만들 것이다.
+
+```
+kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
+kubectl expose deployment hello-minikube --type=NodePort
+```
+
+테스트를 위해서 pod을 하나 띄우고
+
+```
+curl $(minikube service hello-minikube --url)
+```
+
+으로 정보를 확인한다.
+
+#### 대시보드
+```
+minikube dashboard
+```
+
+최저환경 기준으로 1분 쯤 뒤에 실행된다.
+
+
+### (리눅스 Kubernetes)
+
 #### Master Node
 
 ###### kubectl 설치
@@ -173,11 +239,33 @@ chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
 kubectl version
 ```
+###### virtualbox 설치
+
+```
+sudo apt-get install virtualbox
+```
 
 ###### minikube 설치
 
 ```
 curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/ 
+minikube version
+```
+
+재설치하는 경우에는 
+
+```
+minikube start
+```
+
+가 에러를 반환하지 않으면
+```
+```
+
+###### minikube 시작
+
+```
+
 ```
 
 #### 참고자료
