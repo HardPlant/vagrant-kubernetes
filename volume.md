@@ -160,3 +160,12 @@ spec:
         revision: master
         directory: .
 ```
+
+### PersistentVolume, PersistentVolumeClaim
+
+시스템 관리자와 개발자의 역할을 분리할 수 있다.
+
+시스템 관리자가 물리 디스크를 이 기본 오브젝트로 등록하고,
+개발자는 Pod를 생성할 떄 볼륨 정의 부분에 PVC를 지정해 연결한다.
+
+(참조: [](https://bcho.tistory.com/1259?category=731548))
