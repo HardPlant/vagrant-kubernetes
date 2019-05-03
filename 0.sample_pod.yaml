@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: appname
+  labels:
+    name: appname
+spec:
+  containers:
+  - name: appname
+    image: gcr.io/google-containers/busybox
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 8080

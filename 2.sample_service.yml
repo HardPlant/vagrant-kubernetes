@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: appname-service
+spec: # Set IP
+  type: ClusterIP
+  selector:
+    app: appname
+  ports:
+  - port: 3000
+    targetPort: 8080
