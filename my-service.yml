@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dummy-service
+spec:
+  type: ClusterIP
+  selector:
+    app: dummy
+  ports:
+  - port: 3000
+    targetPort: 8080
