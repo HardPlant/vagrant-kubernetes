@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: buildbot
-        image: hp_build_bot:1.0.0.0
+        image: hp_build_bot:1.0.0.1
         resources:
           requests:
             memory: "32Mi"
