@@ -1,5 +1,7 @@
 # minikube 디플로이먼트 만들기
 
+[](https://kubernetes.io/docs/tasks/run-application/run-stateless-application-deployment/)
+
 ### minikube 시작
 
 * minikube 시작
