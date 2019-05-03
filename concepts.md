@@ -123,3 +123,114 @@ spec:
 ```
 
 으로 설정을 하면 pod 중에서 라벨 키 `app` 값이 `myapp`인 pod를 골라 서비스에 바인드한다.
+
+### 컨트롤러
+
+애플리케이션 설정/배포는 앞의 4개 기본 오브젝트로 가능함
+기본 오브젝트를 편하게 관리하기 위해 컨트롤러를 사용함
+
+###### 종류
+Replication Controller (aka RC), Replication Set, DaemonSet, Job, StatefulSet, Deployment
+
+##### Replication Controller
+
+Equality 기반 Selector를 사용함
+(ReplicaSet의 이전 버전, ReplicaSet은 Set 기반 Selector 사용)
+
+Pod를 관리함
+지정된 숫자로 기동, 관리함
+
+```yml
+spec:
+    replicas: 3
+    selector: # 해당 셀렉터를 이용해..
+        app: nginx
+    template:
+        metadata:               # Pod 정의에서 그대로 붙여넣음
+            name: nginx
+            labels:
+                app: nginx # 이 키/값 쌍이 설정된 Pods
+        spec:                 
+            containers:       
+            - name: nginx     
+                image: nginx:1.7.9
+                ports:
+                - containerPort: 8090
+```
+
+##### Deployment
+
+Replica Set의 상위 추상화 개념임
+실제로 사용함
+
+###### 배포 시나리오
+
+* 블루/그린
+
+새 버전 Pod을 3개 띄운 후 모든 트래픽을 즉시 리다이렉트
+
+* 롤링 업그레이드
+
+새 버전 Pod를 1개 띄우고 구버전 Pod 1개를 죽여가며 만듬
+
+이 과정을 추상화함
+
+##### DaemonSet
+
+각 노드에서 Pod을 하나만 돌게 하는 컨트롤러
+모니터링, 로그 수집, GPU/Nvme SSD를 사용하는 경우
+
+##### Job
+
+배치 작업
+(one-time 파일 변환, 주기적 ETL 배치 작업)
+Job 종료 시 Pod를 같이 종료한다
+
+```yml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pi
+spec:
+  template:
+    spec:
+      containers:
+      - name: pi
+        image: perl # 커맨드를 같이 입력한다
+        command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+      restartPolicy: Never
+  backoffLimit: 4
+```
+
+커맨드 결과를 모니터링해 결과가 실패/성공하는지 확인하고,
+실패했다면 설정에 따라 재시도시킬 수 있다.
+같은 작업을 여러 번 수행하게 하는 기능이 있고 (completion), 이를 병렬적으로 할 것인지를 지정할 수 있다. (parallelism)
+
+##### Cron Job
+
+스케줄로 Job 컨트롤러에 있는 Pod를 실행한다.
+
+```yml
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: hello
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: hello
+            image: busybox
+            args:
+            - /bin/sh
+            - -c
+            - date; echo Hello from the Kubernetes cluster
+          restartPolicy: OnFailure
+```
+
+##### StatefulSet
+
+DB 등 상태가 있는 Pod을 관리하는 컨트롤러
