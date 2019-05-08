@@ -15,7 +15,7 @@ spec:
       volumes:
         - name: src
           hostPath:
-            path: src
+            path: /mnt/src
             type: Directory
       containers:
       - name: tf
