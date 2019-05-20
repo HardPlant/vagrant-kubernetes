@@ -45,6 +45,7 @@ kubectl config view #`kubectl` 환경설정 보기
 가상 네트워크 외부에서 접근하려면 파드를 쿠버네티스 `서비스`로 노출해야 한다.
 
 ```
+kubectl expose deployment hello-node --type=NodePort --port=8080
 kubectl expose deployment hello-node --type=LoadBalancer --port=8080
 ```
 
