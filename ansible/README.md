@@ -16,7 +16,7 @@ bserver.example.org
 
 ```
 ssh-agent bash
-ssh-add ~/.sshupdat/id_rsa
+ssh-add ~/.ssh/id_rsa
 ```
 
 * ping
